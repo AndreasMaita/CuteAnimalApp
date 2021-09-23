@@ -1,7 +1,32 @@
+import 'dart:convert';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
+}
+
+Future<DogResponse> fetchDog() async {
+  final response = await http.get(Uri.parse('https://random.dog/woof.json'));
+
+  if (response.statusCode == 200) {
+    return DogResponse.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load the dog data');
+  }
+}
+
+class DogResponse {
+  final int fileSizeBytes;
+  final String url;
+
+  DogResponse({required this.fileSizeBytes, required this.url});
+
+  factory DogResponse.fromJson(Map<String, dynamic> json) {
+    return DogResponse(fileSizeBytes: json['fileSizeBytes'], url: json['url']);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -47,6 +72,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  late Future<DogResponse> dog;
+
+  @override
+  void initState() {
+    super.initState();
+    dog = fetchDog();
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -56,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+      dog = fetchDog();
     });
   }
 
@@ -100,6 +133,17 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            FutureBuilder<DogResponse>(
+                future: dog,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Image.network(snapshot.data!.url);
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}' + "test test test");
+                  }
+                  // By default, show a loading spinner.
+                  return const CircularProgressIndicator();
+                })
           ],
         ),
       ),
