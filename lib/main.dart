@@ -1,32 +1,13 @@
-import 'dart:convert';
 import 'dart:async';
 
+import 'package:cute_dog_app/core/services/dog_service.dart';
+import 'package:cute_dog_app/core/util/service_locator.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'core/models/dog_dto.dart';
 
 void main() {
+  setupServiceLocator();
   runApp(MyApp());
-}
-
-Future<DogResponse> fetchDog() async {
-  final response = await http.get(Uri.parse('https://random.dog/woof.json'));
-
-  if (response.statusCode == 200) {
-    return DogResponse.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load the dog data');
-  }
-}
-
-class DogResponse {
-  final int fileSizeBytes;
-  final String url;
-
-  DogResponse({required this.fileSizeBytes, required this.url});
-
-  factory DogResponse.fromJson(Map<String, dynamic> json) {
-    return DogResponse(fileSizeBytes: json['fileSizeBytes'], url: json['url']);
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Cute Dog'),
     );
   }
 }
@@ -52,19 +33,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  late Future<DogResponse> dog;
+  late Future<DogDto> dog;
+  DogService _dogService = getIt<DogService>();
 
   @override
   void initState() {
     super.initState();
-    dog = fetchDog();
+    dog = _dogService.fetchDog();
   }
 
-  void _incrementCounter() {
+  void _loadNewDog() {
     setState(() {
-      _counter++;
-      dog = fetchDog();
+      dog = _dogService.fetchDog();
     });
   }
 
@@ -78,20 +58,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            FutureBuilder<DogResponse>(
+            FutureBuilder<DogDto>(
                 future: dog,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Image.network(snapshot.data!.url);
                   } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}' + "test test test");
+                    return Text('${snapshot.error}');
                   }
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
@@ -100,8 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: _loadNewDog,
+        tooltip: 'show next',
         child: Icon(Icons.add),
       ),
     );
