@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:cute_dog_app/core/services/dog_service.dart';
 import 'package:cute_dog_app/core/util/service_locator.dart';
+import 'package:cute_dog_app/core/widgets/dog.dart';
+import 'package:cute_dog_app/pages/cat_page.dart';
+import 'package:cute_dog_app/pages/dog_page.dart';
 import 'package:flutter/material.dart';
 import 'core/models/dog_dto.dart';
 
@@ -33,23 +36,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<DogDto> dog;
-  DogService _dogService = getIt<DogService>();
+  List<Widget> pages = [
+    DogPage(),
+    CatPage(),
+  ];
 
   @override
   void initState() {
     super.initState();
-    dog = _dogService.fetchDog();
-  }
-
-  void _loadNewDog() {
-    setState(() {
-      dog = _dogService.fetchDog();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      initialIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Datz!"),
+        ),
+        body: TabBarView(children: pages),
+        bottomNavigationBar: Container(
+          child: new TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(Icons.home),
+              ),
+              Tab(
+                icon: Icon(Icons.search),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+/*
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -62,9 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 future: dog,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Image.network(snapshot.data!.url);
+                    return DogWidget(dogUrl: snapshot.data!.url);
                   } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
+                    return Text('UPS! Something went wrong :(');
                   }
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
@@ -78,5 +104,4 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
-  }
-}
+*/
