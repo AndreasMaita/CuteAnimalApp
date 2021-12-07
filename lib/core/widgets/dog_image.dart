@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -11,8 +10,37 @@ class DogImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        child: FittedBox(child: Image.network(dogImageUrl), fit: BoxFit.fill),
+        child: FittedBox(
+          fit: BoxFit.fill,
+          child: Image.network(
+            dogImageUrl,
+            fit: BoxFit.fill,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) {
+                return child;
+              }
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
 }
+
+/**
+ * Image.network(imgURL,fit: BoxFit.fill,
+  loadingBuilder:(BuildContext context, Widget child,ImageChunkEvent loadingProgress) {
+  if (loadingProgress == null) return child;
+    return Center(
+      child: CircularProgressIndicator(
+      value: loadingProgress.expectedTotalBytes != null ? 
+             loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes
+             : null,
+      ),
+    );
+  },
+),
+ */

@@ -1,12 +1,7 @@
-import 'dart:async';
-
-import 'package:cute_dog_app/core/services/dog_service.dart';
 import 'package:cute_dog_app/core/util/service_locator.dart';
-import 'package:cute_dog_app/core/widgets/dog.dart';
 import 'package:cute_dog_app/pages/cat_page.dart';
 import 'package:cute_dog_app/pages/dog_page.dart';
 import 'package:flutter/material.dart';
-import 'core/models/dog_dto.dart';
 
 void main() {
   setupServiceLocator();
@@ -72,36 +67,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-
-/*
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FutureBuilder<DogDto>(
-                future: dog,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return DogWidget(dogUrl: snapshot.data!.url);
-                  } else if (snapshot.hasError) {
-                    return Text('UPS! Something went wrong :(');
-                  }
-                  // By default, show a loading spinner.
-                  return const CircularProgressIndicator();
-                })
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _loadNewDog,
-        tooltip: 'show next',
-        child: Icon(Icons.add),
-      ),
-    );
-*/
