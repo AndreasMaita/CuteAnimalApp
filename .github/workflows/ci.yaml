@@ -2,8 +2,8 @@ name: CI
 on:
   pull_requests:
     branches:
-      - *
-jobs: 
+      - /*
+jobs:
   flutter_test:
     name: flutter tests
     runs-on: ubuntu-latest
