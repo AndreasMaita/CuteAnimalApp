@@ -29,9 +29,8 @@ class _DogPageState extends State<DogPage> {
     return new GestureDetector(
       onTap: _loadNewDog,
       child: Container(
-        color: Colors.amber[50],
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             FutureBuilder<DogDto>(
                 future: dog,
@@ -43,7 +42,7 @@ class _DogPageState extends State<DogPage> {
                   }
                   // By default, show a loading spinner.
                   return const CircularProgressIndicator();
-                })
+                }),
           ],
         ),
       ),

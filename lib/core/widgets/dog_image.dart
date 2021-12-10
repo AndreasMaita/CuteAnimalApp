@@ -7,22 +7,20 @@ class DogImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: FittedBox(
+    return Container(
+      child: SizedBox.square(
+        dimension: MediaQuery.of(context).size.width,
+        child: Image.network(
+          dogImageUrl,
           fit: BoxFit.fill,
-          child: Image.network(
-            dogImageUrl,
-            fit: BoxFit.fill,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );

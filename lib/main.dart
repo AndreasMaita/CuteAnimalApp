@@ -36,6 +36,15 @@ class _MyHomePageState extends State<MyHomePage> {
     CatPage(),
   ];
 
+  List<Tab> tabs = <Tab>[
+    Tab(
+      text: "Dog",
+    ),
+    Tab(
+      text: "Cat",
+    )
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -45,23 +54,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Datz!"),
-        ),
-        body: TabBarView(children: pages),
-        bottomNavigationBar: Container(
-          child: new TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.home),
-              ),
-              Tab(
-                icon: Icon(Icons.search),
-              ),
-            ],
+          bottom: TabBar(
+            tabs: tabs,
           ),
+          title: Text('Datz!'),
+        ),
+        body: TabBarView(
+          children: [
+            DogPage(),
+            CatPage(),
+          ],
         ),
       ),
     );
