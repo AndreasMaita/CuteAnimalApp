@@ -8,11 +8,10 @@ class _CatPageState extends State<CatPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.blue[50],
-        child: Column(
-          children: <Widget>[
-            Container(height: 100, color: Colors.blue),
-          ],
-        ));
+      color: Colors.blue[50],
+      child: Column(
+        children: <Widget>[],
+      ),
+    );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DogImageWidget extends StatelessWidget {
   const DogImageWidget({Key? key, required this.dogImageUrl}) : super(key: key);

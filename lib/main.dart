@@ -1,7 +1,9 @@
+import 'package:cute_dog_app/core/cubit/dog_cubit.dart';
 import 'package:cute_dog_app/core/util/service_locator.dart';
 import 'package:cute_dog_app/pages/cat_page.dart';
 import 'package:cute_dog_app/pages/dog_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   setupServiceLocator();
@@ -63,8 +65,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: TabBarView(
           children: [
-            DogPage(),
-            CatPage(),
+            BlocProvider(
+              create: (context) => DogCubit(),
+              child: DogPage(),
+            ),
+            BlocProvider(
+              create: (context) => DogCubit(),
+              child: CatPage(),
+            ),
           ],
         ),
       ),

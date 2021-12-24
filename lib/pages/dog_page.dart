@@ -1,48 +1,48 @@
-import 'package:cute_dog_app/core/models/dog_dto.dart';
-import 'package:cute_dog_app/core/services/dog_service.dart';
-import 'package:cute_dog_app/core/util/service_locator.dart';
+import 'package:cute_dog_app/core/cubit/dog_cubit.dart';
 import 'package:cute_dog_app/core/widgets/dog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DogPage extends StatefulWidget {
   _DogPageState createState() => _DogPageState();
 }
 
 class _DogPageState extends State<DogPage> {
-  late Future<DogDto> dog;
-  DogService _dogService = getIt<DogService>();
-
   @override
   void initState() {
     super.initState();
-    dog = _dogService.fetchDog();
-  }
 
-  void _loadNewDog() {
-    setState(() {
-      dog = _dogService.fetchDog();
-    });
+    BlocProvider.of<DogCubit>(context).loadDogUrl();
   }
 
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
-      onTap: _loadNewDog,
+      onTap: () {
+        BlocProvider.of<DogCubit>(context).loadDogUrl();
+      },
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            FutureBuilder<DogDto>(
-                future: dog,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return DogWidget(dogUrl: snapshot.data!.url);
-                  } else if (snapshot.hasError) {
-                    return Text('UPS! Something went wrong :(');
-                  }
-                  // By default, show a loading spinner.
-                  return const CircularProgressIndicator();
-                }),
+            BlocBuilder<DogCubit, DogState>(
+              builder: (context, state) {
+                if (state is LoadingState) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is ErrorState) {
+                  return Center(
+                    child: Icon(Icons.close),
+                  );
+                } else if (state is LoadedState) {
+                  final dog = state.dog;
+                  return DogWidget(dogUrl: dog.url);
+                } else {
+                  return Container();
+                }
+              },
+            ),
           ],
         ),
       ),
