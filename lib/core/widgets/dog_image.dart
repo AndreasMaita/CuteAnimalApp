@@ -1,6 +1,4 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DogImageWidget extends StatelessWidget {
   const DogImageWidget({Key? key, required this.dogImageUrl}) : super(key: key);
@@ -8,24 +6,24 @@ class DogImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: FittedBox(
+    return Container(
+      child: SizedBox.square(
+        dimension: MediaQuery.of(context).size.width,
+        child: Image.network(
+          dogImageUrl,
           fit: BoxFit.fill,
-          child: Image.network(
-            dogImageUrl,
-            fit: BoxFit.fill,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          ),
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );
   }
 }
+
+/**added a comment */

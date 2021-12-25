@@ -1,7 +1,8 @@
+import 'package:cute_dog_app/core/cubit/dog_cubit.dart';
 import 'package:cute_dog_app/core/util/service_locator.dart';
-import 'package:cute_dog_app/pages/cat_page.dart';
 import 'package:cute_dog_app/pages/dog_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   setupServiceLocator();
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -33,7 +35,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = [
     DogPage(),
-    CatPage(),
+  ];
+
+  List<Tab> tabs = <Tab>[
+    Tab(
+      text: "Dog",
+    ),
   ];
 
   @override
@@ -44,24 +51,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
-      initialIndex: 0,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Datz!"),
-        ),
-        body: TabBarView(children: pages),
-        bottomNavigationBar: Container(
-          child: new TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.home),
-              ),
-              Tab(
-                icon: Icon(Icons.search),
-              ),
-            ],
+          bottom: TabBar(
+            tabs: tabs,
           ),
+          title: Text('Datz!'),
+        ),
+        body: TabBarView(
+          children: [
+            BlocProvider(
+              create: (context) => DogCubit(),
+              child: DogPage(),
+            ),
+          ],
         ),
       ),
     );
