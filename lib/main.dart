@@ -1,6 +1,5 @@
 import 'package:cute_dog_app/core/cubit/dog_cubit.dart';
 import 'package:cute_dog_app/core/util/service_locator.dart';
-import 'package:cute_dog_app/pages/cat_page.dart';
 import 'package:cute_dog_app/pages/dog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -35,16 +35,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = [
     DogPage(),
-    CatPage(),
   ];
 
   List<Tab> tabs = <Tab>[
     Tab(
       text: "Dog",
     ),
-    Tab(
-      text: "Cat",
-    )
   ];
 
   @override
@@ -55,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 1,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
@@ -68,10 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
             BlocProvider(
               create: (context) => DogCubit(),
               child: DogPage(),
-            ),
-            BlocProvider(
-              create: (context) => DogCubit(),
-              child: CatPage(),
             ),
           ],
         ),

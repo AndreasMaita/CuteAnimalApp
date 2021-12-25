@@ -27,15 +27,15 @@ class _DogPageState extends State<DogPage> {
           children: <Widget>[
             BlocBuilder<DogCubit, DogState>(
               builder: (context, state) {
-                if (state is LoadingState) {
+                if (state is DogLoading) {
                   return Center(
-                    child: CircularProgressIndicator(),
+                    child: Container(),
                   );
-                } else if (state is ErrorState) {
+                } else if (state is DogError) {
                   return Center(
                     child: Icon(Icons.close),
                   );
-                } else if (state is LoadedState) {
+                } else if (state is DogLoaded) {
                   final dog = state.dog;
                   return DogWidget(dogUrl: dog.url);
                 } else {

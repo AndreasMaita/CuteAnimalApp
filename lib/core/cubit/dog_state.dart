@@ -2,20 +2,18 @@ part of 'dog_cubit.dart';
 
 abstract class DogState extends Equatable {}
 
-class InitialState extends DogState {
-  InitialState();
-
+class DogInitial extends DogState {
   @override
   List<Object> get props => [];
 }
 
-class LoadingState extends DogState {
+class DogLoading extends DogState {
   @override
   List<Object> get props => [];
 }
 
-class LoadedState extends DogState {
-  LoadedState(this.dog);
+class DogLoaded extends DogState {
+  DogLoaded(this.dog);
 
   final DogDto dog;
 
@@ -23,7 +21,7 @@ class LoadedState extends DogState {
   List<Object> get props => [dog];
 }
 
-class ErrorState extends DogState {
+class DogError extends DogState {
   @override
   List<Object> get props => [];
 }

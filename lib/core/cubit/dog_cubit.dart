@@ -9,15 +9,15 @@ part 'dog_state.dart';
 class DogCubit extends Cubit<DogState> {
   DogService _dogService = getIt<DogService>();
 
-  DogCubit() : super(InitialState());
+  DogCubit() : super(DogInitial());
 
   void loadDogUrl() async {
     try {
-      emit(LoadingState());
+      emit(DogLoading());
 
-      this._dogService.fetchDog().then((dog) => emit(LoadedState(dog)));
+      this._dogService.fetchDog().then((dog) => emit(DogLoaded(dog)));
     } catch (e) {
-      emit(ErrorState());
+      emit(DogError());
     }
   }
 }
