@@ -14,19 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Cute Dog'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -39,7 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Tab> tabs = <Tab>[
     Tab(
-      text: "Dog",
+      child: Text(
+        "Dog",
+        style: TextStyle(color: Colors.amber),
+      ),
     ),
   ];
 
@@ -54,10 +52,50 @@ class _MyHomePageState extends State<MyHomePage> {
       length: 1,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
+          titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+              fontSize: 41.0,
+              fontFamily: "Greatvibes"),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          title: Text('Datz!'),
+          leadingWidth: 150,
+          leading: Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: Stack(
+                children: <Widget>[
+                  Positioned.fill(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Color(0xFF0D47A1),
+                            Color.fromRGBO(174, 38, 140, 0.8),
+                            Color.fromRGBO(121, 198, 201, 0.8),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(16.0),
+                      primary: Colors.white,
+                      textStyle: const TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () {},
+                    child: const Text('Rate Us!'),
+                  ),
+                ],
+              ),
+            ),
+          ),
           bottom: TabBar(
             tabs: tabs,
           ),
-          title: Text('Datz!'),
         ),
         body: TabBarView(
           children: [
