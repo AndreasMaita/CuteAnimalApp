@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Tab(
       child: Text(
         "Dog",
-        style: TextStyle(color: Colors.amber),
+        style: TextStyle(color: Colors.black),
       ),
     ),
   ];
@@ -63,33 +63,34 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text('Datz!'),
           leadingWidth: 150,
           leading: Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Stack(
-                children: <Widget>[
-                  Positioned.fill(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: <Color>[
-                            Color(0xFF0D47A1),
-                            Color.fromRGBO(174, 38, 140, 0.8),
-                            Color.fromRGBO(121, 198, 201, 0.8),
-                          ],
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Color(0xFF0D47A1),
+                              Color.fromRGBO(174, 38, 140, 0.8),
+                              Color.fromRGBO(121, 198, 201, 0.8),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(16.0),
-                      primary: Colors.white,
-                      textStyle: const TextStyle(fontSize: 20),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        primary: Colors.white,
+                      ),
+                      onPressed: () {},
+                      child: const Text('Beta!'),
                     ),
-                    onPressed: () {},
-                    child: const Text('Rate Us!'),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -104,6 +105,22 @@ class _MyHomePageState extends State<MyHomePage> {
               child: DogPage(),
             ),
           ],
+        ),
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.only(bottom: 15),
+          child: ButtonBar(
+            alignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                icon: Icon(Icons.favorite),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: Icon(Icons.camera_alt),
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

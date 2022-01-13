@@ -22,6 +22,7 @@ class _DogPageState extends State<DogPage> {
         BlocProvider.of<DogCubit>(context).loadDogUrl();
       },
       child: Container(
+        padding: EdgeInsets.all(15.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

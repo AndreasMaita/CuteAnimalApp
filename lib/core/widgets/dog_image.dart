@@ -9,17 +9,20 @@ class DogImageWidget extends StatelessWidget {
     return Container(
       child: SizedBox.square(
         dimension: MediaQuery.of(context).size.width,
-        child: Image.network(
-          dogImageUrl,
-          fit: BoxFit.fill,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: Image.network(
+            dogImageUrl,
+            fit: BoxFit.fill,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) {
+                return child;
+              }
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
         ),
       ),
     );
