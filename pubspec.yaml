@@ -44,10 +44,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/icons/favorite_coming_soon.png
+    - assets/icons/camera_coming_soon.png
   fonts: 
     - family: Greatvibes
       fonts:
-        - asset: fonts/GreatVibes-Regular.ttf
+        - asset: assets/fonts/GreatVibes-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

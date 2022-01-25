@@ -74,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: <Color>[
-                              Color(0xFF0D47A1),
-                              Color.fromRGBO(174, 38, 140, 0.8),
-                              Color.fromRGBO(121, 198, 201, 0.8),
+                              Color.fromRGBO(255, 13, 52, 1),
+                              Color.fromRGBO(174, 38, 140, 1),
+                              Color.fromRGBO(6, 184, 191, 1),
                             ],
                           ),
                         ),
@@ -112,11 +112,15 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconButton(
-                icon: Icon(Icons.favorite),
+                iconSize: 100,
+                icon: Image.asset(
+                  'assets/icons/favorite_coming_soon.png',
+                ),
                 onPressed: () {},
               ),
               IconButton(
-                icon: Icon(Icons.camera_alt),
+                iconSize: 100,
+                icon: Image.asset('assets/icons/camera_coming_soon.png'),
                 onPressed: () {},
               ),
             ],
