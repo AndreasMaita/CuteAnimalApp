@@ -3,9 +3,12 @@ import 'package:cute_dog_app/core/util/service_locator.dart';
 import 'package:cute_dog_app/pages/dog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() {
   setupServiceLocator();
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(MyApp());
 }
 

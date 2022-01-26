@@ -2,6 +2,7 @@
     package="com.example.cute_dog_app">
    <application
         android:label="cute_dog_app"
+        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -37,6 +38,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2596447806058502~1374722501"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

@@ -34,6 +34,7 @@ dependencies:
   http: ^0.13.3
   mockito: ^5.0.16
   equatable: ^2.0.3
+  google_mobile_ads: ^1.0.1
 
 dev_dependencies:
   flutter_test:
