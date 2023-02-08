@@ -41,6 +41,10 @@ dependencies:
   get_it: ^7.2.0
   video_player: ^2.5.1
   google_mobile_ads: ^2.3.0
+  permission_handler: ^8.1.4+2
+  path_provider: ^2.0.2 
+  gallery_saver:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:

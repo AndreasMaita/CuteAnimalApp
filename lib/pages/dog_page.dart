@@ -17,33 +17,28 @@ class _DogPageState extends State<DogPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        BlocProvider.of<DogCubit>(context).loadDogUrl();
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          BlocBuilder<DogCubit, DogState>(
-            builder: (context, state) {
-              if (state is DogLoading) {
-                return Center(
-                  child: Container(),
-                );
-              } else if (state is DogError) {
-                return const Center(
-                  child: Icon(Icons.close),
-                );
-              } else if (state is DogLoaded) {
-                final dog = state.dog;
-                return DogWidget(dogUrl: dog.url);
-              } else {
-                return Container();
-              }
-            },
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        BlocBuilder<DogCubit, DogState>(
+          builder: (context, state) {
+            if (state is DogLoading) {
+              return Center(
+                child: Container(),
+              );
+            } else if (state is DogError) {
+              return const Center(
+                child: Icon(Icons.close),
+              );
+            } else if (state is DogLoaded) {
+              final dog = state.dog;
+              return DogWidget(dogUrl: dog.url);
+            } else {
+              return Container();
+            }
+          },
+        ),
+      ],
     );
   }
 }
