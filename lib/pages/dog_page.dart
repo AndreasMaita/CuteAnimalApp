@@ -38,6 +38,10 @@ class _DogPageState extends State<DogPage> {
             }
           },
         ),
+        ElevatedButton(
+          child: Text('Load Dog'),
+          onPressed: () {},
+        ),
       ],
     );
   }
